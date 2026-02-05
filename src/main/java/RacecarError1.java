@@ -1,10 +1,11 @@
-public class RacecarError1 extends RacecarExample{
+public class RacecarError1 extends RacecarExample {
 
     public RacecarError1() {
         super();
     }
 
-    public boolean willFinish(int avgSpeed){
+    @Override
+    public boolean willFinish(int avgSpeed) {
         double fuelDrainRate;
 
         if (avgSpeed >= 150) {
@@ -15,18 +16,19 @@ public class RacecarError1 extends RacecarExample{
             fuelDrainRate = 0.05;
         }
 
-        //-----first check if car already needs to pit
+        // first check if car already needs to pit
         if (needToPit) {
-            //reset percentages
-            fuelPercentageRemaining = 48.0; //ERROR: set to value other than 100.0
-            return false; //because it can't finish the race without pitting if it needs to pit
+            // reset fuel to full when pitting
+            fuelPercentageRemaining = 100.0;
+            return false;
         }
 
-        //-----second update fuelPercentageRemaining
+        // update fuelPercentageRemaining
         fuelPercentageRemaining -= fuelDrainRate * lapsCompleted;
 
-        //-----third calculate whether the car can finish the race based on remaining fuel level
+        // calculate whether the car can finish the race
         int lapsRemaining = overallLaps - lapsCompleted;
         return fuelPercentageRemaining > fuelDrainRate * lapsRemaining;
     }
 }
+
