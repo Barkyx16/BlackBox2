@@ -19,14 +19,11 @@ dependencies {
 
 checkstyle {
     toolVersion = '10.12.5'
+    configFile = file("config/checkstyle/checkstyle.xml")
+    configProperties = ["config_loc": file("config/checkstyle").absolutePath]
     ignoreFailures = false
     showViolations = true
 }
 
-tasks.withType(Checkstyle) {
-    reports {
-        xml.required = false
-        html.required = true
-    }
-}
+tasks.withType(Checkstyl
 
