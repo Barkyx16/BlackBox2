@@ -171,3 +171,4 @@ public class RacecarExampleTest {
         assertTrue(result);
     }
 }
+
