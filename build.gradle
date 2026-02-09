@@ -20,10 +20,18 @@ dependencies {
 checkstyle {
     toolVersion = '10.12.5'
     configFile = file("config/checkstyle/checkstyle.xml")
-    configProperties = ["config_loc": file("config/checkstyle").absolutePath]
     ignoreFailures = false
     showViolations = true
 }
 
-tasks.withType(Checkstyl
+tasks.withType(Checkstyle) {
+    // Required because Gradle 8 disallows config_loc in configProperties
+    configDirectory = file("config/checkstyle")
+
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
+
 
