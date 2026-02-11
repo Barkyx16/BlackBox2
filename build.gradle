@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
 }
 
 mainClassName = 'Main'
@@ -15,3 +16,22 @@ repositories {
 dependencies {
     implementation "junit:junit:4.12"
 }
+
+checkstyle {
+    toolVersion = '10.12.5'
+    configFile = file("config/checkstyle/checkstyle.xml")
+    ignoreFailures = false
+    showViolations = true
+}
+
+tasks.withType(Checkstyle) {
+    // Required because Gradle 8 disallows config_loc in configProperties
+    configDirectory = file("config/checkstyle")
+
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
+
+
