@@ -2,9 +2,8 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'com.github.spotbugs' version '6.0.15'
 }
-
-mainClassName = 'Main'
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
@@ -14,8 +13,22 @@ repositories {
 }
 
 dependencies {
-    implementation "junit:junit:4.12"
+    testImplementation 'junit:junit:4.13.2'
 }
+
+application {
+    mainClass = 'Main'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+/* ======================
+   CHECKSTYLE CONFIG
+   ====================== */
 
 checkstyle {
     toolVersion = '10.12.5'
@@ -24,14 +37,26 @@ checkstyle {
     showViolations = true
 }
 
-tasks.withType(Checkstyle) {
-    // Required because Gradle 8 disallows config_loc in configProperties
+tasks.withType(Checkstyle).configureEach {
     configDirectory = file("config/checkstyle")
-
     reports {
         xml.required = false
         html.required = true
     }
 }
 
+/* ======================
+   SPOTBUGS CONFIG
+   ====================== */
+
+spotbugs {
+    toolVersion = '4.8.6'
+}
+
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
 
