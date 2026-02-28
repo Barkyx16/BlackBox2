@@ -1,14 +1,12 @@
 public class Main {
 
-    public static void main(String[] args) {
+    public static boolean run() {
         RacecarExample racecar = new RacecarExample();
         int avgSpeed = 100;
-        boolean result = racecar.willFinish(avgSpeed);
-
-        displayResult(result);
+        return racecar.willFinish(avgSpeed);
     }
 
-    private static void displayResult(boolean result) {
-        System.out.println("return: " + result);
+    public static void main(String[] args) {
+        run();
     }
 }
