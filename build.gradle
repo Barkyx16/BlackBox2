@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'pmd'
     id 'com.github.spotbugs' version '6.0.15'
 }
 
@@ -22,7 +23,7 @@ application {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)   // ← CHANGED FROM 21 TO 17
     }
 }
 
@@ -54,6 +55,24 @@ spotbugs {
 }
 
 tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
+
+/* ======================
+   PMD CONFIG
+   ====================== */
+
+pmd {
+    toolVersion = "6.55.0"
+    ruleSetFiles = files("config/pmd/pmd.xml")
+    ruleSets = []
+    ignoreFailures = true
+}
+
+tasks.withType(Pmd).configureEach {
     reports {
         xml.required = false
         html.required = true
