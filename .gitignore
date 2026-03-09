@@ -39,4 +39,18 @@ bin/
 .vscode/
 
 ### Mac OS ###
+### VS Code ###
+.vscode/
+
+### Mac OS ###
 .DS_Store
+
+### Gradle / Build ###
+.gradle/
+build/
+out/
+
+### IDE ###
+.idea/
+*.iml
+
